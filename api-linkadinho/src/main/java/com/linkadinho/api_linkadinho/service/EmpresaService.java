@@ -75,7 +75,7 @@ public class EmpresaService {
             arquivo.delete();
             return clienteS3.getUrl(bucketAWS, nome_imagem).toString();
         } catch (Exception e){
-            System.out.println("Erro no upload de arquivo");
+            System.out.println("Erro no upload de arquivo: " + e);
             return null;
         }
 
