@@ -4,7 +4,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.linkadinho.api_linkadinho.domain.empresa.DadosAtualizarEmpresa;
 import com.linkadinho.api_linkadinho.domain.empresa.DadosCadastroEmpresa;
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
+import com.linkadinho.api_linkadinho.domain.usuario.UserRole;
+import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
 import com.linkadinho.api_linkadinho.repositories.EmpresaRepository;
+import com.linkadinho.api_linkadinho.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,12 +27,15 @@ public class EmpresaService {
     private EmpresaRepository repository;
 
     @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
     private AmazonS3 clienteS3;
 
     @Value("${aws.bucket}")
     private String bucketAWS;
 
-    public Empresa cadastrarEmpresa(DadosCadastroEmpresa dados) {
+    public Empresa cadastrarEmpresa(DadosCadastroEmpresa dados, String emailUsuario) {
         String imgUrl = null;
 
         if(dados.image() != null) {
@@ -39,6 +45,13 @@ public class EmpresaService {
         Empresa empresa = new Empresa(dados);
         empresa.setCodigo(gerarCodigo());
         empresa.setImgUrl(imgUrl);
+
+        Usuario usuario = (Usuario) usuarioRepository.findByEmail(emailUsuario);
+        usuario.setRole(UserRole.ADMIN);
+        usuario.setEmpresa(empresa);
+        usuarioRepository.save(usuario);
+
+        empresa.setAdmin(usuario);
 
         return repository.save(empresa);
     }

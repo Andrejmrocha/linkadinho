@@ -1,10 +1,12 @@
 package com.linkadinho.api_linkadinho.domain.usuario;
 
+import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
 import com.linkadinho.api_linkadinho.dto.RegistrarUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Usuario implements UserDetails {
 
     @Id
@@ -27,6 +30,10 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
     private UserRole role;
+
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
     public Usuario(RegistrarUsuarioDTO dados, String senhaCripto) {
         this.nome = dados.nome();
