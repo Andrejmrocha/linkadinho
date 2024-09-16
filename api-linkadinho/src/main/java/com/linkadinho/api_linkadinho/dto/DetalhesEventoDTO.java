@@ -10,6 +10,6 @@ import java.time.LocalDate;
 public record DetalhesEventoDTO(Long id, String nome, LocalDate dataCadastro) {
 
     public DetalhesEventoDTO(Evento evento) {
-        this(evento.getId(), evento.getNome(), evento.getDataCadastro());
+        this(evento.getId(), evento.getNome(), evento.getData());
     }
 }

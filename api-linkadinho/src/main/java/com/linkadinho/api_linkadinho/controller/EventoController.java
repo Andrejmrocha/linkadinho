@@ -1,6 +1,7 @@
 package com.linkadinho.api_linkadinho.controller;
 
 import com.linkadinho.api_linkadinho.domain.evento.Evento;
+import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.DetalhesEventoDTO;
 import com.linkadinho.api_linkadinho.service.EventoService;
@@ -29,6 +30,13 @@ public class EventoController {
                 SecurityContextHolder.getContext().getAuthentication().getName());
         var uri = uriBuilder.path("evento/{id}").buildAndExpand(evento.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetalhesEventoDTO(evento));
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody AtualizarEventoDTO dados) {
+        var evento = eventoService.atualizarEvento(dados);
+        return ResponseEntity.ok(new DetalhesEventoDTO(evento));
     }
 
     @GetMapping("/{id}")

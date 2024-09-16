@@ -1,6 +1,7 @@
 package com.linkadinho.api_linkadinho.domain.evento;
 
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
+import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class Evento {
 
     private String nome;
 
-    private LocalDate dataCadastro;
+    private LocalDate data;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -32,7 +33,13 @@ public class Evento {
 
     public Evento(CadastrarEventoDTO dados, Empresa empresa) {
         this.nome = dados.nome();
-        this.dataCadastro = dados.data();
+        this.data = dados.data();
         this.empresa = empresa;
+    }
+
+    public void atualizarInformacoes(AtualizarEventoDTO dados) {
+        if (dados.nome() != null) this.nome = dados.nome();
+        if (dados.data() != null) this.data = dados.data();
+
     }
 }

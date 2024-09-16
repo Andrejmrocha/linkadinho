@@ -3,6 +3,7 @@ package com.linkadinho.api_linkadinho.service;
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
 import com.linkadinho.api_linkadinho.domain.evento.Evento;
 import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import com.linkadinho.api_linkadinho.infra.exception.EventoNaoEncontradoException;
 import com.linkadinho.api_linkadinho.repositories.EmpresaRepository;
@@ -35,5 +36,11 @@ public class EventoService {
 
     public Evento buscarEvento(Long id) {
         return eventoRepository.findById(id).orElseThrow(() -> new EventoNaoEncontradoException("Evento não encontrado"));
+    }
+
+    public Evento atualizarEvento(AtualizarEventoDTO dados) {
+        Evento evento = eventoRepository.findById(dados.id()).orElseThrow(() -> new EventoNaoEncontradoException("Evento não encontrado"));
+        evento.atualizarInformacoes(dados);
+        return evento;
     }
 }
