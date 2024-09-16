@@ -1,5 +1,6 @@
 package com.linkadinho.api_linkadinho.domain.empresa;
 
+import com.linkadinho.api_linkadinho.domain.evento.Evento;
 import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +34,9 @@ public class Empresa {
 
     @OneToMany(mappedBy = "empresa")
     private List<Usuario> usuarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "empresa")
+    private List<Evento> eventos = new ArrayList<>();
 
     public Empresa(DadosCadastroEmpresa dados) {
         this.nome = dados.nome();

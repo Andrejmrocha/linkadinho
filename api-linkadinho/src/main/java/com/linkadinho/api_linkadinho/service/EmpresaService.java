@@ -6,6 +6,7 @@ import com.linkadinho.api_linkadinho.domain.empresa.DadosCadastroEmpresa;
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
 import com.linkadinho.api_linkadinho.domain.usuario.UserRole;
 import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.infra.exception.EmpresaNaoEncontradaException;
 import com.linkadinho.api_linkadinho.repositories.EmpresaRepository;
 import com.linkadinho.api_linkadinho.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,11 @@ public class EmpresaService {
 
         return repository.save(empresa);
     }
+
+    public Empresa buscarEmpresa (Long id) {
+        return repository.findById(id).orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa não encontrada"));
+    }
+
 
     private String uploadImagem(MultipartFile file) {
         String nome_imagem = UUID.randomUUID() + "-" + file.getOriginalFilename();

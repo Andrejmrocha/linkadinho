@@ -1,6 +1,7 @@
 package com.linkadinho.api_linkadinho.controller;
 
 import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.dto.DetalhesUsuarioDTO;
 import com.linkadinho.api_linkadinho.dto.LoginDTO;
 import com.linkadinho.api_linkadinho.dto.RegistrarUsuarioDTO;
 import com.linkadinho.api_linkadinho.dto.RespostaLoginDTO;
@@ -13,10 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("autenticacao")
@@ -35,8 +34,15 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity registrar(@RequestBody RegistrarUsuarioDTO dados) {
-       registroService.registrar(dados);
-       return ResponseEntity.ok().build();
+    public ResponseEntity registrar(@RequestBody RegistrarUsuarioDTO dados, UriComponentsBuilder uriBuilder) {
+       Usuario usuario = registroService.registrar(dados);
+       var uri = uriBuilder.path("autenticacao/{id}").buildAndExpand(usuario.getId()).toUri();
+       return ResponseEntity.created(uri).body(new DetalhesUsuarioDTO(usuario));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var usuario = registroService.buscarUsuario(id);
+        return ResponseEntity.ok(new DetalhesUsuarioDTO(usuario));
     }
 }

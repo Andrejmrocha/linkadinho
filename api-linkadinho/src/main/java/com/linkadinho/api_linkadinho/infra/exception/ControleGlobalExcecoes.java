@@ -22,4 +22,14 @@ public class ControleGlobalExcecoes {
     public ResponseEntity<String> handleUsuarioNaoEncontradoException(UsuarioNaoEncontradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(EventoNaoEncontradoException.class)
+    public ResponseEntity<String> handleEventoNaoEncontradoException(EventoNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EmpresaNaoEncontradaException.class)
+    public ResponseEntity<String> handleEmpresaNaoEncontradaException(EmpresaNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
