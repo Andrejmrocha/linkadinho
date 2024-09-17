@@ -1,12 +1,11 @@
 package com.linkadinho.api_linkadinho.controller;
 
-import com.linkadinho.api_linkadinho.domain.empresa.DadosAtualizarEmpresa;
-import com.linkadinho.api_linkadinho.domain.empresa.DadosCadastroEmpresa;
+import com.linkadinho.api_linkadinho.dto.AtualizarEmpresaDTO;
+import com.linkadinho.api_linkadinho.dto.CadastrarEmpresaDTO;
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
 import com.linkadinho.api_linkadinho.dto.DetalhesEmpresaDTO;
 import com.linkadinho.api_linkadinho.service.EmpresaService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +25,7 @@ public class EmpresaController {
     public ResponseEntity cadastrar(@RequestParam("nome") String nome,
                                              @RequestParam(value= "imagem", required = false)MultipartFile imagem,
                                              UriComponentsBuilder uriBuilder){
-        DadosCadastroEmpresa dtoCadastroEmpresa = new DadosCadastroEmpresa(nome, imagem);
+        CadastrarEmpresaDTO dtoCadastroEmpresa = new CadastrarEmpresaDTO(nome, imagem);
         Empresa empresa = service.cadastrarEmpresa(dtoCadastroEmpresa,
                 SecurityContextHolder.getContext().getAuthentication().getName());
         var uri = uriBuilder.path("empresa/{id}").buildAndExpand(empresa.getId()).toUri();
@@ -39,7 +38,7 @@ public class EmpresaController {
     public ResponseEntity<Empresa> atualizar(@RequestParam(value = "nome", required = false) String nome,
                                              @RequestParam(value = "imagem", required = false) MultipartFile imagem,
                                              @RequestParam("id") Long id){
-        return ResponseEntity.ok(service.atualizarEmpresa(new DadosAtualizarEmpresa(id, nome, imagem)));
+        return ResponseEntity.ok(service.atualizarEmpresa(new AtualizarEmpresaDTO(id, nome, imagem)));
     }
 
     @GetMapping("/{id}")

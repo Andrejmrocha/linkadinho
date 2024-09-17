@@ -1,6 +1,7 @@
 package com.linkadinho.api_linkadinho.domain.evento;
 
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
+import com.linkadinho.api_linkadinho.domain.feedback.FeedbackEvento;
 import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -30,6 +33,9 @@ public class Evento {
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    private List<FeedbackEvento> feedbacks = new ArrayList<>();
 
     public Evento(CadastrarEventoDTO dados, Empresa empresa) {
         this.nome = dados.nome();

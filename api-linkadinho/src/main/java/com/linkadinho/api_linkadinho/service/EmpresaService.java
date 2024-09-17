@@ -1,8 +1,8 @@
 package com.linkadinho.api_linkadinho.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.linkadinho.api_linkadinho.domain.empresa.DadosAtualizarEmpresa;
-import com.linkadinho.api_linkadinho.domain.empresa.DadosCadastroEmpresa;
+import com.linkadinho.api_linkadinho.dto.AtualizarEmpresaDTO;
+import com.linkadinho.api_linkadinho.dto.CadastrarEmpresaDTO;
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
 import com.linkadinho.api_linkadinho.domain.usuario.UserRole;
 import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
@@ -36,7 +36,7 @@ public class EmpresaService {
     @Value("${aws.bucket}")
     private String bucketAWS;
 
-    public Empresa cadastrarEmpresa(DadosCadastroEmpresa dados, String emailUsuario) {
+    public Empresa cadastrarEmpresa(CadastrarEmpresaDTO dados, String emailUsuario) {
         String imgUrl = null;
 
         if(dados.image() != null) {
@@ -57,7 +57,7 @@ public class EmpresaService {
         return repository.save(empresa);
     }
 
-    public Empresa atualizarEmpresa(DadosAtualizarEmpresa dados){
+    public Empresa atualizarEmpresa(AtualizarEmpresaDTO dados){
         var empresa = repository.getReferenceById(dados.id());
         String newimgUrl = null;
 

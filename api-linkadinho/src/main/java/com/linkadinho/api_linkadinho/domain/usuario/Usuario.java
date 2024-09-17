@@ -1,6 +1,9 @@
 package com.linkadinho.api_linkadinho.domain.usuario;
 
 import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
+import com.linkadinho.api_linkadinho.domain.feedback.Feedback;
+import com.linkadinho.api_linkadinho.domain.feedback.FeedbackEvento;
+import com.linkadinho.api_linkadinho.domain.feedback.FeedbackUsuario;
 import com.linkadinho.api_linkadinho.dto.RegistrarUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +13,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,6 +38,12 @@ public class Usuario implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+
+    @OneToMany(mappedBy = "usuarioRemetente", cascade = CascadeType.ALL)
+    private List<FeedbackEvento> feedbacksEnviados = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuarioDestinatario", cascade = CascadeType.ALL)
+    private List<FeedbackUsuario> feedbacksRecebidos = new ArrayList<>();
 
     public Usuario(RegistrarUsuarioDTO dados, String senhaCripto) {
         this.nome = dados.nome();

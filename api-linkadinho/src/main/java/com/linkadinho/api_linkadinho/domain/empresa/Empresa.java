@@ -2,13 +2,12 @@ package com.linkadinho.api_linkadinho.domain.empresa;
 
 import com.linkadinho.api_linkadinho.domain.evento.Evento;
 import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.dto.CadastrarEmpresaDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Entity
 @Table
@@ -38,7 +37,7 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa")
     private List<Evento> eventos = new ArrayList<>();
 
-    public Empresa(DadosCadastroEmpresa dados) {
+    public Empresa(CadastrarEmpresaDTO dados) {
         this.nome = dados.nome();
     }
 

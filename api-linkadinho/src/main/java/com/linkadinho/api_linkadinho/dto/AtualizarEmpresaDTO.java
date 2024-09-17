@@ -1,9 +1,9 @@
-package com.linkadinho.api_linkadinho.domain.empresa;
-
+package com.linkadinho.api_linkadinho.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public record DadosCadastroEmpresa(
+public record AtualizarEmpresaDTO(
+        Long id,
         String nome,
         MultipartFile image
 ) {
