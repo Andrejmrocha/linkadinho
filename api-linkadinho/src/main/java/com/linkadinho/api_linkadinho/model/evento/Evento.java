@@ -1,7 +1,7 @@
-package com.linkadinho.api_linkadinho.domain.evento;
+package com.linkadinho.api_linkadinho.model.evento;
 
-import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
-import com.linkadinho.api_linkadinho.domain.feedback.FeedbackEvento;
+import com.linkadinho.api_linkadinho.model.empresa.Empresa;
+import com.linkadinho.api_linkadinho.model.feedback.FeedbackEvento;
 import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import jakarta.persistence.*;

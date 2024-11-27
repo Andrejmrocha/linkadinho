@@ -1,4 +1,4 @@
-package com.linkadinho.api_linkadinho.domain.usuario;
+package com.linkadinho.api_linkadinho.model.usuario;
 
 import lombok.Getter;
 

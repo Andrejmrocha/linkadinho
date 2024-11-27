@@ -1,7 +1,7 @@
-package com.linkadinho.api_linkadinho.domain.feedback;
+package com.linkadinho.api_linkadinho.model.feedback;
 
-import com.linkadinho.api_linkadinho.domain.evento.Evento;
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.evento.Evento;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
 import com.linkadinho.api_linkadinho.dto.CadastrarFeedbackEventoDTO;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

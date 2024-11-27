@@ -1,9 +1,8 @@
-package com.linkadinho.api_linkadinho.domain.usuario;
+package com.linkadinho.api_linkadinho.model.usuario;
 
-import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
-import com.linkadinho.api_linkadinho.domain.feedback.Feedback;
-import com.linkadinho.api_linkadinho.domain.feedback.FeedbackEvento;
-import com.linkadinho.api_linkadinho.domain.feedback.FeedbackUsuario;
+import com.linkadinho.api_linkadinho.model.empresa.Empresa;
+import com.linkadinho.api_linkadinho.model.feedback.FeedbackEvento;
+import com.linkadinho.api_linkadinho.model.feedback.FeedbackUsuario;
 import com.linkadinho.api_linkadinho.dto.RegistrarUsuarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +33,7 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
     private UserRole role;
+    private String foto_url;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -45,12 +45,16 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuarioDestinatario", cascade = CascadeType.ALL)
     private List<FeedbackUsuario> feedbacksRecebidos = new ArrayList<>();
 
-    public Usuario(RegistrarUsuarioDTO dados, String senhaCripto) {
+    public Usuario(RegistrarUsuarioDTO dados, String senhaCripto, Empresa empresa) {
         this.nome = dados.nome();
         this.sobrenome = dados.sobrenome();
         this.email = dados.email();
         this.senha = senhaCripto;
         this.role = dados.role();
+        this.empresa = empresa;
+    }
+
+    public Usuario(String subject, String role, String organization, Long id) {
     }
 
 

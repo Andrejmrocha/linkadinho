@@ -1,18 +1,16 @@
 package com.linkadinho.api_linkadinho.service;
 
-import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
-import com.linkadinho.api_linkadinho.domain.evento.Evento;
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.empresa.Empresa;
+import com.linkadinho.api_linkadinho.model.evento.Evento;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
 import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import com.linkadinho.api_linkadinho.infra.exception.EventoNaoEncontradoException;
-import com.linkadinho.api_linkadinho.repositories.EmpresaRepository;
-import com.linkadinho.api_linkadinho.repositories.EventoRepository;
-import com.linkadinho.api_linkadinho.repositories.UsuarioRepository;
+import com.linkadinho.api_linkadinho.repository.EmpresaRepository;
+import com.linkadinho.api_linkadinho.repository.EventoRepository;
+import com.linkadinho.api_linkadinho.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class EventoService {

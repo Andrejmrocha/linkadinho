@@ -1,6 +1,6 @@
-package com.linkadinho.api_linkadinho.repositories;
+package com.linkadinho.api_linkadinho.repository;
 
-import com.linkadinho.api_linkadinho.domain.evento.Evento;
+import com.linkadinho.api_linkadinho.model.evento.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

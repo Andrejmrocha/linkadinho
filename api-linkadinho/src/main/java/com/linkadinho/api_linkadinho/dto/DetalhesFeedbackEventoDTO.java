@@ -1,6 +1,6 @@
 package com.linkadinho.api_linkadinho.dto;
 
-import com.linkadinho.api_linkadinho.domain.feedback.FeedbackEvento;
+import com.linkadinho.api_linkadinho.model.feedback.FeedbackEvento;
 
 import java.time.LocalDate;
 

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public record CadastrarFeedbackUsuarioDTO(
         String comentario,
         LocalDate data,
-        String emailUsuarioDestinatario
+        Long idUsuarioDestinatario,
+        String assunto
 ) {
 }

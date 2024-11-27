@@ -1,4 +1,4 @@
-package com.linkadinho.api_linkadinho.config;
+package com.linkadinho.api_linkadinho.configuration;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;

@@ -1,9 +1,6 @@
 package com.linkadinho.api_linkadinho.dto;
 
-import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
-import com.linkadinho.api_linkadinho.domain.evento.Evento;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.linkadinho.api_linkadinho.model.evento.Evento;
 
 import java.time.LocalDate;
 

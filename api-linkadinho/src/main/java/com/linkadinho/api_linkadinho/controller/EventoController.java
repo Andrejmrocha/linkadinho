@@ -1,6 +1,6 @@
 package com.linkadinho.api_linkadinho.controller;
 
-import com.linkadinho.api_linkadinho.domain.evento.Evento;
+import com.linkadinho.api_linkadinho.model.evento.Evento;
 import com.linkadinho.api_linkadinho.dto.AtualizarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEventoDTO;
 import com.linkadinho.api_linkadinho.dto.DetalhesEventoDTO;

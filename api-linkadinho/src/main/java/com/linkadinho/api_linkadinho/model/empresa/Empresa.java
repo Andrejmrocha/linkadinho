@@ -1,7 +1,7 @@
-package com.linkadinho.api_linkadinho.domain.empresa;
+package com.linkadinho.api_linkadinho.model.empresa;
 
-import com.linkadinho.api_linkadinho.domain.evento.Evento;
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.evento.Evento;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
 import com.linkadinho.api_linkadinho.dto.CadastrarEmpresaDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,6 +27,8 @@ public class Empresa {
 
     private String imgUrl;
 
+    private Boolean ativo;
+
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Usuario admin;
@@ -39,6 +41,11 @@ public class Empresa {
 
     public Empresa(CadastrarEmpresaDTO dados) {
         this.nome = dados.nome();
+        this.ativo = true;
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 
 }

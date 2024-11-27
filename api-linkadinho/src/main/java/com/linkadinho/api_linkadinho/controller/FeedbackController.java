@@ -1,11 +1,14 @@
 package com.linkadinho.api_linkadinho.controller;
 
-import com.linkadinho.api_linkadinho.domain.feedback.Feedback;
-import com.linkadinho.api_linkadinho.domain.feedback.FeedbackEvento;
-import com.linkadinho.api_linkadinho.domain.feedback.FeedbackUsuario;
+import com.linkadinho.api_linkadinho.model.feedback.FeedbackEvento;
+import com.linkadinho.api_linkadinho.model.feedback.FeedbackUsuario;
 import com.linkadinho.api_linkadinho.dto.*;
 import com.linkadinho.api_linkadinho.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +33,7 @@ public class FeedbackController {
     public ResponseEntity cadastrar(@RequestBody CadastrarFeedbackUsuarioDTO dados, UriComponentsBuilder uriBuilder) {
         FeedbackUsuario feedbackUsuario = feedbackService.cadastrarFeedbackUsuario(dados,
                 SecurityContextHolder.getContext().getAuthentication().getName());
-        var uri = uriBuilder.path("feedback/evento/{id}").buildAndExpand(feedbackUsuario.getId()).toUri();
+        var uri = uriBuilder.path("feedback/usuario/{id}").buildAndExpand(feedbackUsuario.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetalhesFeedbackUsuarioDTO(feedbackUsuario));
     }
 
@@ -44,5 +47,11 @@ public class FeedbackController {
     public ResponseEntity detalharFeedbackUsuario(@PathVariable Long id) {
         FeedbackUsuario feedback = feedbackService.buscarFeedbackUsuario(id);
         return ResponseEntity.ok(new DetalhesFeedbackUsuarioDTO(feedback));
+    }
+
+    @GetMapping("/usuario/lista/{idUsuario}")
+    public ResponseEntity<Page<ListarFeedbackDTO>> listarFeedbacksPorUsuario(@PageableDefault(size = 10, sort = {"data"}, direction = Sort.Direction.DESC) Pageable paginacao, @PathVariable Long idUsuario) {
+        var page = feedbackService.listarFeedbackPorUsuario(paginacao, idUsuario);
+        return ResponseEntity.ok(page);
     }
 }

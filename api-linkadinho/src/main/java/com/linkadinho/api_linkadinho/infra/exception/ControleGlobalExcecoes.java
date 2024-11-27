@@ -10,17 +10,17 @@ public class ControleGlobalExcecoes {
 
     @ExceptionHandler(EmailJaExistenteException.class)
     public ResponseEntity<String> handleEmailJaExistenteException(EmailJaExistenteException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"" + ex.getMessage() + "\"}");
     }
 
     @ExceptionHandler(CredenciasInvalidasException.class)
     public ResponseEntity<String> handleCredenciasInvalidasException(CredenciasInvalidasException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"" + ex.getMessage() + "\"}");
     }
 
     @ExceptionHandler(UsuarioNaoEncontradoException.class)
     public ResponseEntity<String> handleUsuarioNaoEncontradoException(UsuarioNaoEncontradoException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"" + ex.getMessage() + "\"}");
     }
 
     @ExceptionHandler(EventoNaoEncontradoException.class)

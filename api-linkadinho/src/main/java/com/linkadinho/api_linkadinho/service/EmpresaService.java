@@ -3,14 +3,18 @@ package com.linkadinho.api_linkadinho.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.linkadinho.api_linkadinho.dto.AtualizarEmpresaDTO;
 import com.linkadinho.api_linkadinho.dto.CadastrarEmpresaDTO;
-import com.linkadinho.api_linkadinho.domain.empresa.Empresa;
-import com.linkadinho.api_linkadinho.domain.usuario.UserRole;
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.empresa.Empresa;
+import com.linkadinho.api_linkadinho.model.usuario.UserRole;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
+import com.linkadinho.api_linkadinho.dto.DetalhesEmpresaDTO;
+import com.linkadinho.api_linkadinho.dto.ListarEmpresaDTO;
 import com.linkadinho.api_linkadinho.infra.exception.EmpresaNaoEncontradaException;
-import com.linkadinho.api_linkadinho.repositories.EmpresaRepository;
-import com.linkadinho.api_linkadinho.repositories.UsuarioRepository;
+import com.linkadinho.api_linkadinho.repository.EmpresaRepository;
+import com.linkadinho.api_linkadinho.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,10 +61,9 @@ public class EmpresaService {
         return repository.save(empresa);
     }
 
-    public Empresa atualizarEmpresa(AtualizarEmpresaDTO dados){
+    public DetalhesEmpresaDTO atualizarEmpresa(AtualizarEmpresaDTO dados){
         var empresa = repository.getReferenceById(dados.id());
         String newimgUrl = null;
-
         if(dados.image() != null) {
 
             if(this.deletarImagem(empresa.getImgUrl())) {
@@ -77,13 +80,16 @@ public class EmpresaService {
             empresa.setNome(dados.nome());
         }
 
-        return repository.save(empresa);
+        return new DetalhesEmpresaDTO(repository.save(empresa));
     }
 
     public Empresa buscarEmpresa (Long id) {
         return repository.findById(id).orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa não encontrada"));
     }
 
+    public Page<ListarEmpresaDTO> listar(Pageable pageable) {
+        return repository.findAll(pageable).map(ListarEmpresaDTO::new);
+    }
 
     private String uploadImagem(MultipartFile file) {
         String nome_imagem = UUID.randomUUID() + "-" + file.getOriginalFilename();

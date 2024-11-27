@@ -1,11 +1,11 @@
 package com.linkadinho.api_linkadinho.service;
 
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
 import com.linkadinho.api_linkadinho.dto.LoginDTO;
 import com.linkadinho.api_linkadinho.dto.RespostaLoginDTO;
 import com.linkadinho.api_linkadinho.infra.exception.CredenciasInvalidasException;
 import com.linkadinho.api_linkadinho.infra.exception.UsuarioNaoEncontradoException;
-import com.linkadinho.api_linkadinho.repositories.UsuarioRepository;
+import com.linkadinho.api_linkadinho.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

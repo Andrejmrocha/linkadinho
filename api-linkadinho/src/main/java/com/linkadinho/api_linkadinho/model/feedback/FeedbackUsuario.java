@@ -1,6 +1,6 @@
-package com.linkadinho.api_linkadinho.domain.feedback;
+package com.linkadinho.api_linkadinho.model.feedback;
 
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
 import com.linkadinho.api_linkadinho.dto.CadastrarFeedbackUsuarioDTO;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -23,10 +23,13 @@ public class FeedbackUsuario extends Feedback{
     @JoinColumn(name = "usuario_id_destinatario")
     private Usuario usuarioDestinatario;
 
+    private String assunto;
+
     public FeedbackUsuario(CadastrarFeedbackUsuarioDTO dados, Usuario usuarioRementente, Usuario usuarioDestinatario) {
         this.setComentario(dados.comentario());
         this.setData(dados.data());
         this.setUsuarioRemetente(usuarioRementente);
         this.setUsuarioDestinatario(usuarioDestinatario);
+        this.setAssunto(dados.assunto());
     }
 }

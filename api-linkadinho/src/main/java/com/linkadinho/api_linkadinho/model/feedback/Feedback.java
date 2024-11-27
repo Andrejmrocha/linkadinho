@@ -1,6 +1,6 @@
-package com.linkadinho.api_linkadinho.domain.feedback;
+package com.linkadinho.api_linkadinho.model.feedback;
 
-import com.linkadinho.api_linkadinho.domain.usuario.Usuario;
+import com.linkadinho.api_linkadinho.model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

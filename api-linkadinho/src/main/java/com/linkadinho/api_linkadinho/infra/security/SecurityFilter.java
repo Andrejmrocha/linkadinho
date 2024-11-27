@@ -1,15 +1,13 @@
 package com.linkadinho.api_linkadinho.infra.security;
 
 import com.linkadinho.api_linkadinho.infra.exception.TokenInvalidoException;
-import com.linkadinho.api_linkadinho.infra.exception.UsuarioNaoEncontradoException;
-import com.linkadinho.api_linkadinho.repositories.UsuarioRepository;
+import com.linkadinho.api_linkadinho.repository.UsuarioRepository;
 import com.linkadinho.api_linkadinho.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,9 +31,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = this.recuperarToken(request);
         try {
             if (token != null) {
-                var email = this.tokenService.validarToken(token);
-                UserDetails usuario = this.usuarioRepository.findByEmail(email);
-
+                var tokenInfo = this.tokenService.validarToken(token);
+                UserDetails usuario = this.usuarioRepository.findByEmail(tokenInfo.subject());
                 var autenticacao = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(autenticacao);
             }
